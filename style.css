@@ -7,7 +7,15 @@ img {
     padding: 2px;
 }
 
+.game-field {
+    /* position: relative; */
+    overflow: hidden;
+    border: 1px solid green;
+    height: 326px;
+}
+
 .block-1 {
-    border: 1px solid black;
     display: inline-block;
+    position: relative;
+    top: -50px;
 }
