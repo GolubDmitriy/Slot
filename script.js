@@ -21,9 +21,12 @@ function func() {
     // block1.style.top = '0px';
     let a = -50
     const timerId = setInterval(() => {
-        a += 4
+        a += 2
         block1.style.top = a + 'px';
-    }, 10)
+        if (a === 0) {
+            a = -50;
+        }
+    }, 1000/60)
 }
 
 function stopGame() {
