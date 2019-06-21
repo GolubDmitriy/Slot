@@ -21,7 +21,7 @@ class Game {
         this.cols = []
         this.arrImgForCol = []
         this.timersId = []
-        this.stop = false
+        this.stopGame = false
         this.counterForStop = 0
         this.speed = speed
         this.timerIdStartBtnActive
@@ -68,7 +68,7 @@ class Game {
 
     startRoulette() {
         this.startBtnDeactivate()
-        this.stop = false;
+        this.stopGame = false;
         this.counterForStop = 0;
         let timerIdSetTimeout = setTimeout(this.stopRoulete.bind(this), 5000)
         for (let i = 0; i < this.cols.length; ++i ) {
@@ -78,7 +78,7 @@ class Game {
                 if (a === 0) {
                     a = -756
                 }
-                if (this.stop && a % 108 === 0 && this.counterForStop === i) {
+                if (this.stopGame && a % 108 === 0 && this.counterForStop === i) {
                     clearInterval(this.timersId[i]);
                     clearInterval(timerIdSetTimeout);
                     ++this.counterForStop;
@@ -92,12 +92,13 @@ class Game {
     }
 
     stopRoulete() {
-        this.stop = true;
+        this.stopGame = true;
+        this.stopBtnDeactivate();
     }
 
     startBtnActive() {
         startBtn.addEventListener('click', this.startRoulette);
-        this.stopBtnDeactivate()
+        this.stopBtnDeactivate();
         let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
         colors = this.randomImgInArr(colors);
         let numberColors = 0;
@@ -119,7 +120,7 @@ class Game {
     } 
 
     stopBtnDeactivate() {
-        stopBtn.removeEventListener('click', this.startRoulette);
+        stopBtn.removeEventListener('click', this.stopRoulete);
         stopBtn.style.background = 'grey';
     }
 }
