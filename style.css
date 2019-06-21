@@ -9,7 +9,6 @@ img {
 
 .game-field {
     overflow: hidden;
-    border: 1px solid green;
     height: 326px;
     display: flex;
     justify-content: center;
@@ -18,4 +17,9 @@ img {
 .block-1 {
     display: inline-block;
     position: relative;
+}
+
+.btn-bar {
+    text-align: center;
+    margin-top: 20px;
 }
