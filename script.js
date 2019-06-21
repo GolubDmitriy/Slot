@@ -5,28 +5,27 @@ const stopBtn = document.getElementById('stop-btn')
 const block1 = document.getElementsByClassName('block-1')[0];
 
 const allIconAuto = [
+    'img/mini.png',
     'img/audi.png',
     'img/bmw.png',
     'img/ford.png',
     'img/hummer.png',
     'img/kombi.png',
-    'img/lamborgini.png',
-    'img/mini.png'
+    'img/lamborghini.png',
 ];
 
 startBtn.addEventListener('click', func);
 
 function func() {
-    const img = block1.getElementsByTagName('img');
-    // block1.style.top = '0px';
-    let a = -50
+    const imgs = block1.getElementsByTagName('img');
+    let a = -756
     const timerId = setInterval(() => {
-        a += 2
-        block1.style.top = a + 'px';
+        a += 2;
         if (a === 0) {
-            a = -50;
+            a = -756
         }
-    }, 1000/60)
+        block1.style.top = a + 'px';
+    }, 1000/200)
 }
 
 function stopGame() {
