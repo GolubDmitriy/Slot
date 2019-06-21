@@ -16,31 +16,6 @@ const allIconAuto = [
     'img/lamborghini.png',
 ];
 
-let stop = false;
-
-// startBtn.addEventListener('click', func);
-
-// stopBtn.addEventListener('click', stopGame)
-
-function func() {
-    let a = -756
-    stop = false;
-    const timerId = setInterval(() => {
-        a += 2;
-        if (a === 0) {
-            a = -756
-        }
-        if (stop && a % 108 === 0) {
-            clearInterval(timerId)
-        }
-        block1.style.top = a + 'px';
-    }, 7)
-}
-
-function stopGame() {
-    stop = true;
-}
-
 class Game {
     constructor(columns, imgs) {
         this.columns = columns
