@@ -124,6 +124,6 @@ class Game {
     }
 }
 
-const gameTest = new Game(3, allIconAuto, [4, 20, 15]);
+const gameTest = new Game(5, allIconAuto, [4, 20, 10, 2, 15]);
 
 gameTest.drawGameField();
