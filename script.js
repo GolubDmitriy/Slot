@@ -4,8 +4,6 @@ const stopBtn = document.getElementById('stop-btn');
 
 const gameField = document.getElementsByClassName('game-field')[0];
 
-const block1 = document.getElementsByClassName('block-1')[0];
-
 const allIconAuto = [
     'img/mini.png',
     'img/audi.png',
@@ -31,6 +29,7 @@ class Game {
         for (let i = 0; i < this.columns; i++) {
             const col = document.createElement('div');
             col.classList.add('block-1');
+            col.style.top = this.imgs.length * -108 + 'px';
             this.randomImgInArr(); 
             for (let icon of this.addImgInArrayIcon()) {
                 const iconImg = document.createElement('img');
@@ -58,8 +57,12 @@ class Game {
 
     startRoulette() {
         const speed = [4, 20, 15];
+        this.stop = false;
+        this.counterForStop = 0;
+        let timerIdSetInterval = setTimeout(this.stopRoulete.bind(this), 5000)
         for (let i = 0; i < this.cols.length; ++i ) {
-            let a = -756;
+            // let a = -756;
+            let a = parseInt(this.cols[i].style.top)
             this.timersId[i] = setInterval(() => {
                 a += 2;
                 if (a === 0) {
@@ -67,6 +70,7 @@ class Game {
                 }
                 if (this.stop && a % 108 === 0 && this.counterForStop === i) {
                     clearInterval(this.timersId[i]);
+                    clearInterval(timerIdSetInterval);
                     ++this.counterForStop;
                 }
                 this.cols[i].style.top = a + 'px';
