@@ -49,6 +49,7 @@ class Game {
         this.arrImgForCol = []
         this.timersId = []
         this.stop = false
+        this.counterForStop = 0
     }
 
     drawGameField() {
@@ -89,8 +90,9 @@ class Game {
                 if (a === 0) {
                     a = -756
                 }
-                if (this.stop && a % 108 === 0) {
-                    clearInterval(this.timersId[i])
+                if (this.stop && a % 108 === 0 && this.counterForStop === i) {
+                    clearInterval(this.timersId[i]);
+                    ++this.counterForStop;
                 }
                 this.cols[i].style.top = a + 'px';
             }, speed[i])
