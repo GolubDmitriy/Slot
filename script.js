@@ -4,7 +4,7 @@ const stopBtn = document.getElementById('stop-btn');
 
 const gameField = document.getElementsByClassName('game-field')[0];
 
-const allIconAuto = [
+const iconsAuto = [
     'img/mini.png',
     'img/audi.png',
     'img/bmw.png',
@@ -27,6 +27,7 @@ class Game {
         this.timerIdStartBtnActive
         this.startRoulette = this.startRoulette.bind(this)
         this.stopRoulete = this.stopRoulete.bind(this)
+        this.visibleCellsInCol = 3
     }
 
     drawGameField() {
@@ -49,7 +50,7 @@ class Game {
 
     addImgInArrayIcon(arr) {
         let newArr = [...arr];
-        for (let i = 0; i < 3; ++i) {
+        for (let i = 0; i < this.visibleCellsInCol; ++i) {
             newArr.push(arr[i])
         }
         return newArr;
@@ -125,6 +126,6 @@ class Game {
     }
 }
 
-const gameTest = new Game(5, allIconAuto, [4, 20, 10, 2, 15]);
+const gameTest = new Game(5, iconsAuto, [4, 20, 10, 2, 15]);
 
 gameTest.drawGameField();
