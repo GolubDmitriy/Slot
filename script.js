@@ -46,31 +46,36 @@ class Game {
         this.columns = columns
         this.imgs = imgs
         this.cols = []
+        this.arrImgForCol = []
     }
 
     drawGameField() {
-        this.addImgInArrayIcon()
         for (let i = 0; i < this.columns; i++) {
             const col = document.createElement('div');
             col.classList.add('block-1');
-            for (let icon of this.imgs) {
+            this.randomImgInArr(); 
+            for (let icon of this.addImgInArrayIcon()) {
                 const iconImg = document.createElement('img');
                 iconImg.src = icon;
                 col.appendChild(iconImg)
             }
             this.cols.push(col)
-            console.log(col);
             gameField.appendChild(col)
         }
     }
 
     addImgInArrayIcon() {
-        this.imgs = [...this.imgs, this.imgs[0], this.imgs[1], this.imgs[2]]
+        return [...this.imgs, this.imgs[0], this.imgs[1], this.imgs[2]]
     }
 
     startGame() {
         this.drawGameField();
+    }
 
+    randomImgInArr() {
+        this.imgs.sort((elem1, elem2) => {
+            return Math.random() - 0.5;
+        })
     }
 }
 
