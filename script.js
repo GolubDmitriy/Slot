@@ -28,6 +28,7 @@ class Game {
         this.startRoulette = this.startRoulette.bind(this)
         this.stopRoulete = this.stopRoulete.bind(this)
         this.visibleCellsInCol = 3
+        this.timerIdStopBtnActive
     }
 
     drawGameField() {
@@ -117,10 +118,16 @@ class Game {
 
     stopBtnActivate() {
         stopBtn.addEventListener('click', this.stopRoulete);
-        stopBtn.style.background = 'white';
+        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
+        colors = this.randomImgInArr(colors);
+        let numberColors = 0;
+        this.timerIdStopBtnActive = setInterval(() => {
+            stopBtn.style.background = colors[numberColors++ % colors.length];
+        }, 300)
     } 
 
     stopBtnDeactivate() {
+        clearInterval(this.timerIdStopBtnActive);
         stopBtn.removeEventListener('click', this.stopRoulete);
         stopBtn.style.background = 'grey';
     }
