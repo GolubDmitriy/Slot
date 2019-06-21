@@ -20,7 +20,7 @@ let stop = false;
 
 // startBtn.addEventListener('click', func);
 
-stopBtn.addEventListener('click', stopGame)
+// stopBtn.addEventListener('click', stopGame)
 
 function func() {
     let a = -756
@@ -47,6 +47,8 @@ class Game {
         this.imgs = imgs
         this.cols = []
         this.arrImgForCol = []
+        this.timersId = []
+        this.stop = false
     }
 
     drawGameField() {
@@ -82,17 +84,21 @@ class Game {
         const speed = [4, 20, 15];
         for (let i = 0; i < this.cols.length; ++i ) {
             let a = -756;
-            setInterval(() => {
+            this.timersId[i] = setInterval(() => {
                 a += 2;
                 if (a === 0) {
                     a = -756
                 }
-                if (stop && a % 108 === 0) {
-                    clearInterval(timerId)
+                if (this.stop && a % 108 === 0) {
+                    clearInterval(this.timersId[i])
                 }
                 this.cols[i].style.top = a + 'px';
             }, speed[i])
         }
+    }
+
+    stopRoulete() {
+        this.stop = true;
     }
 }
 
@@ -101,3 +107,5 @@ const gameTest = new Game(3, allIconAuto);
 gameTest.drawGameField();
 
 startBtn.addEventListener('click', gameTest.startRoulette.bind(gameTest));
+
+stopBtn.addEventListener('click', gameTest.stopRoulete.bind(gameTest))
