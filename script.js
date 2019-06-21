@@ -18,7 +18,7 @@ const allIconAuto = [
 
 let stop = false;
 
-startBtn.addEventListener('click', func);
+// startBtn.addEventListener('click', func);
 
 stopBtn.addEventListener('click', stopGame)
 
@@ -77,8 +77,27 @@ class Game {
             return Math.random() - 0.5;
         })
     }
+
+    startRoulette() {
+        const speed = [4, 20, 15];
+        for (let i = 0; i < this.cols.length; ++i ) {
+            let a = -756;
+            setInterval(() => {
+                a += 2;
+                if (a === 0) {
+                    a = -756
+                }
+                if (stop && a % 108 === 0) {
+                    clearInterval(timerId)
+                }
+                this.cols[i].style.top = a + 'px';
+            }, speed[i])
+        }
+    }
 }
 
 const gameTest = new Game(3, allIconAuto);
 
 gameTest.drawGameField();
+
+startBtn.addEventListener('click', gameTest.startRoulette.bind(gameTest));
