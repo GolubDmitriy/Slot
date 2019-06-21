@@ -11,6 +11,8 @@ img {
     overflow: hidden;
     border: 1px solid green;
     height: 326px;
+    display: flex;
+    justify-content: center;
 }
 
 .block-1 {
