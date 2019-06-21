@@ -15,7 +15,7 @@ const allIconAuto = [
 ];
 
 class Game {
-    constructor(columns, imgs) {
+    constructor(columns, imgs, speed) {
         this.columns = columns
         this.imgs = imgs
         this.cols = []
@@ -23,6 +23,8 @@ class Game {
         this.timersId = []
         this.stop = false
         this.counterForStop = 0
+        this.speed = speed
+        this.timerIdStartBtnActive
     }
 
     drawGameField() {
@@ -30,8 +32,9 @@ class Game {
             const col = document.createElement('div');
             col.classList.add('block-1');
             col.style.top = this.imgs.length * -108 + 'px';
-            this.randomImgInArr(); 
-            for (let icon of this.addImgInArrayIcon()) {
+            let randomImgs = this.randomImgInArr(this.imgs)
+            randomImgs = this.addImgInArrayIcon(randomImgs)
+            for (let icon of randomImgs) {
                 const iconImg = document.createElement('img');
                 iconImg.src = icon;
                 col.appendChild(iconImg)
@@ -41,27 +44,30 @@ class Game {
         }
     }
 
-    addImgInArrayIcon() {
-        return [...this.imgs, this.imgs[0], this.imgs[1], this.imgs[2]]
+    addImgInArrayIcon(arr) {
+        let newArr = [...arr];
+        for (let i = 0; i < 3; ++i) {
+            newArr.push(arr[i])
+        }
+        return newArr;
     }
 
     startGame() {
         this.drawGameField();
     }
 
-    randomImgInArr() {
-        this.imgs.sort((elem1, elem2) => {
+    randomImgInArr(arr) {
+        arr.sort(() => {
             return Math.random() - 0.5;
         })
+        return arr;
     }
 
     startRoulette() {
-        const speed = [4, 20, 15];
         this.stop = false;
         this.counterForStop = 0;
-        let timerIdSetInterval = setTimeout(this.stopRoulete.bind(this), 5000)
+        let timerIdSetTimeout = setTimeout(this.stopRoulete.bind(this), 5000)
         for (let i = 0; i < this.cols.length; ++i ) {
-            // let a = -756;
             let a = parseInt(this.cols[i].style.top)
             this.timersId[i] = setInterval(() => {
                 a += 2;
@@ -70,20 +76,31 @@ class Game {
                 }
                 if (this.stop && a % 108 === 0 && this.counterForStop === i) {
                     clearInterval(this.timersId[i]);
-                    clearInterval(timerIdSetInterval);
+                    clearInterval(timerIdSetTimeout);
                     ++this.counterForStop;
                 }
                 this.cols[i].style.top = a + 'px';
-            }, speed[i])
+            }, this.speed[i])
         }
     }
 
     stopRoulete() {
         this.stop = true;
     }
+
+    startBtnActive() {
+        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
+        colors.sort(() => {
+            return Math.random() - 0.5;
+        })
+        this.timerIdStartBtnActive = setInterval(() => {
+            startBtn.style.background = 'red';
+        }, 300)
+        
+    }
 }
 
-const gameTest = new Game(3, allIconAuto);
+const gameTest = new Game(3, allIconAuto, [4, 20, 15]);
 
 gameTest.drawGameField();
 
