@@ -25,9 +25,11 @@ class Game {
         this.counterForStop = 0
         this.speed = speed
         this.timerIdStartBtnActive
+        this.startRoulette = this.startRoulette.bind(this)
     }
 
     drawGameField() {
+        this.startBtnActive()
         for (let i = 0; i < this.columns; i++) {
             const col = document.createElement('div');
             col.classList.add('block-1');
@@ -64,6 +66,8 @@ class Game {
     }
 
     startRoulette() {
+        console.log(666)
+        this.startBtnDeactivate()
         this.stop = false;
         this.counterForStop = 0;
         let timerIdSetTimeout = setTimeout(this.stopRoulete.bind(this), 5000)
@@ -90,13 +94,17 @@ class Game {
 
     startBtnActive() {
         let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
-        colors.sort(() => {
-            return Math.random() - 0.5;
-        })
+        colors = this.randomImgInArr(colors);
+        let numberColors = 0;
         this.timerIdStartBtnActive = setInterval(() => {
-            startBtn.style.background = 'red';
+            startBtn.style.background = colors[numberColors++ % colors.length];
         }, 300)
-        
+    }
+
+    startBtnDeactivate() {
+        clearInterval(this.timerIdStartBtnActive);
+        startBtn.removeEventListener('click', this.startRoulette);
+        startBtn.style.background = 'grey';
     }
 }
 
@@ -104,6 +112,6 @@ const gameTest = new Game(3, allIconAuto, [4, 20, 15]);
 
 gameTest.drawGameField();
 
-startBtn.addEventListener('click', gameTest.startRoulette.bind(gameTest));
+startBtn.addEventListener('click', gameTest.startRoulette);
 
 stopBtn.addEventListener('click', gameTest.stopRoulete.bind(gameTest))
