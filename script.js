@@ -1,6 +1,8 @@
 const startBtn = document.getElementById('start-btn');
 
-const stopBtn = document.getElementById('stop-btn')
+const stopBtn = document.getElementById('stop-btn');
+
+const gameField = document.getElementsByClassName('game-field')[0];
 
 const block1 = document.getElementsByClassName('block-1')[0];
 
@@ -14,20 +16,64 @@ const allIconAuto = [
     'img/lamborghini.png',
 ];
 
+let stop = false;
+
 startBtn.addEventListener('click', func);
 
+stopBtn.addEventListener('click', stopGame)
+
 function func() {
-    const imgs = block1.getElementsByTagName('img');
     let a = -756
+    stop = false;
     const timerId = setInterval(() => {
         a += 2;
         if (a === 0) {
             a = -756
         }
+        if (stop && a % 108 === 0) {
+            clearInterval(timerId)
+        }
         block1.style.top = a + 'px';
-    }, 1000/200)
+    }, 7)
 }
 
 function stopGame() {
-
+    stop = true;
 }
+
+class Game {
+    constructor(columns, imgs) {
+        this.columns = columns
+        this.imgs = imgs
+        this.cols = []
+    }
+
+    drawGameField() {
+        this.addImgInArrayIcon()
+        for (let i = 0; i < this.columns; i++) {
+            const col = document.createElement('div');
+            col.classList.add('block-1');
+            for (let icon of this.imgs) {
+                const iconImg = document.createElement('img');
+                iconImg.src = icon;
+                col.appendChild(iconImg)
+            }
+            this.cols.push(col)
+            console.log(col);
+            gameField.appendChild(col)
+        }
+    }
+
+    addImgInArrayIcon() {
+        this.imgs = [...this.imgs, this.imgs[0], this.imgs[1], this.imgs[2]]
+    }
+
+    startGame() {
+        this.drawGameField();
+
+    }
+}
+
+const gameTest = new Game(3, allIconAuto);
+
+gameTest.drawGameField();
