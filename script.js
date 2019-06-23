@@ -72,12 +72,12 @@ class Game {
         this.startBtnDeactivate()
         this.stopGame = false;
         this.counterForStop = 0;
-        let timerIdSetTimeout = setTimeout(this.stopRoulete.bind(this), 5000)
+        let timerIdSetTimeout = setTimeout(this.stopRoulete, 5000)
         for (let i = 0; i < this.cols.length; ++i ) {
             let a = parseInt(this.cols[i].style.top)
             this.timersId[i] = setInterval(() => {
-                a += 2;
-                if (a === 0) {
+                a += 3;
+                if (a >= 0) {
                     a = -756
                 }
                 if (this.stopGame && a % 108 === 0 && this.counterForStop === i) {
@@ -133,6 +133,6 @@ class Game {
     }
 }
 
-const gameTest = new Game(5, iconsAuto, [4, 20, 10, 2, 15]);
+const gameTest = new Game(5, iconsAuto, [6, 20, 10, 1, 15]);
 
 gameTest.drawGameField();
