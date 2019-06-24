@@ -101,7 +101,7 @@ class Game {
     startBtnActive() {
         startBtn.addEventListener('click', this.startRoulette);
         this.stopBtnDeactivate();
-        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
+        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange', 'blue'];
         colors = this.randomImgInArr(colors);
         let numberColors = 0;
         this.timerIdStartBtnActive = setInterval(() => {
@@ -118,7 +118,7 @@ class Game {
 
     stopBtnActivate() {
         stopBtn.addEventListener('click', this.stopRoulete);
-        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange'];
+        let colors = ['red', 'green', 'yellow', 'purple', 'greenyellow', 'orange', 'blue'];
         colors = this.randomImgInArr(colors);
         let numberColors = 0;
         this.timerIdStopBtnActive = setInterval(() => {
